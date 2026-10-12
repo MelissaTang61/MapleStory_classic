@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#173c2d">
+  <meta name="description" content="新楓之谷．經典版職業與等級練功、任務歷程、組隊任務導航。">
+  <meta name="application-name" content="新楓之谷．經典版｜練功指南">
+  <meta property="og:title" content="新楓之谷．經典版｜練功指南">
+  <meta property="og:description" content="依職業與等級推薦個人練功、任務歷程與組隊任務。">
+  <title>新楓之谷．經典版｜練功指南</title>
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <div class="shell">
+    <aside class="sidebar">
+      <a class="brand" href="?page=solo" aria-label="新楓之谷經典版練功指南首頁">
+        <span class="brand-leaf" aria-hidden="true"><i></i></span>
+        <span><b>新楓之谷．經典版</b><small>練功指南</small></span>
+      </a>
+      <section class="character-box" aria-label="角色設定">
+        <div class="character-head"><span>MY ADVENTURER</span><b id="sideLevel">LV.32</b></div>
+        <label>職系<select id="classSelect"><option value="warrior">⚔ 劍士</option><option value="magician">✦ 法師</option><option value="bowman">➶ 弓箭手</option><option value="thief">◆ 盜賊</option><option value="pirate">✹ 海盜</option></select></label>
+        <label>二轉分支<select id="subclass"></select></label>
+        <label>目前等級<span class="level-input"><b>Lv.</b><input id="levelNumber" type="number" min="1" max="100" value="32" inputmode="numeric"></span></label>
+        <input id="levelRange" class="range" type="range" min="1" max="100" value="32" aria-label="目前等級滑桿">
+        <div class="range-scale"><span>1</span><span>30</span><span>70</span><span>100</span></div>
+      </section>
+      <nav class="side-nav" aria-label="功能頁面">
+        <button type="button" class="active" data-page="solo"><span>01</span><b>個人練功</b><small>地圖與掉落</small></button>
+        <button type="button" data-page="quests"><span>02</span><b>任務歷程</b><small>主線與支線</small></button>
+        <button type="button" data-page="party"><span>03</span><b>組隊任務</b><small>等級門檻</small></button>
+        <button type="button" data-page="notes"><span>04</span><b>資料說明</b><small>來源與版本</small></button>
+      </nav>
+      <div class="side-foot"><i></i><span>V001 · Lv.100<br>2026.10.12 校對</span></div>
+    </aside>
+    <main class="workspace">
+      <header class="topline">
+        <div><p id="pageEyebrow">SOLO GRINDING</p><h1 id="pageTitle">個人練功</h1><span id="pageDesc">依角色條件推薦現在最合適的地圖與掉落。</span></div>
+        <div class="top-actions"><span class="sync-status"><i></i> 路線已同步</span><button id="copyRoute" type="button">複製我的路線 ↗</button></div>
+      </header>
+      <section id="solo" class="page active">
+        <div class="route-banner">
+          <div><span>NEXT STOP</span><h2 id="summaryMap">東方岩石山Ⅵ</h2><p id="summaryTarget">主要目標｜火肥肥</p></div>
+          <div class="route-metrics"><div><span>角色</span><b id="summaryRole">Lv.32 劍士</b></div><div><span>可解任務</span><b id="summaryQuests">4 項</b></div><div><span>組隊狀態</span><b id="summaryParty">超綠已畢業</b></div></div>
+        </div>
+        <div class="utility-grid">
+          <section class="tool-panel" aria-labelledby="dropFinderTitle">
+            <span>DROP FINDER</span><h2 id="dropFinderTitle">裝備反向查詢</h2>
+            <p>輸入裝備、卷軸或素材名稱，反查掉落怪物與推薦地圖。</p>
+            <div class="search-row"><input id="dropSearch" type="search" placeholder="例如：手套攻擊卷軸、雪花鏢、鍋蓋" autocomplete="off"><button id="clearDropSearch" type="button">清除</button></div>
+            <div class="quick-search" id="dropSuggestions"><button type="button" data-query="手套攻擊卷軸">手套攻擊卷軸</button><button type="button" data-query="卷軸">全部卷軸</button><button type="button" data-query="鏢">飛鏢</button><button type="button" data-query="母礦">母礦</button></div>
+            <div id="dropResults" class="drop-results" aria-live="polite"></div>
+          </section>
+          <section class="tool-panel route-planner" id="routePlanner" aria-labelledby="routePlannerTitle">
+            <span>ROUTE PLANNER</span><h2 id="routePlannerTitle">地圖路線導航</h2>
+            <p>選擇目前所在城鎮，查看前往推薦地圖的傳送點順序。</p>
+            <label>目前城鎮<select id="startTown"><option>維多利亞港</option><option>弓箭手村</option><option>勇士之村</option><option>魔法森林</option><option>墮落城市</option><option>鯨魚號</option><option>楓之島</option></select></label>
+            <div id="routePreview" class="route-preview" aria-live="polite"></div>
+          </section>
+        </div>
+        <div class="section-head"><div><span>RECOMMENDATIONS</span><h2>推薦狩獵地圖與效率比較</h2></div><p>EXP／HP 為資料參考值；補水成本為依職系估算的每小時楓幣。</p></div>
+        <div class="recommendation-grid" id="soloGrid"></div>
+      </section>
+      <section id="quests" class="page">
+        <div class="quest-progress-summary"><div><span>TRACKING</span><b id="questTracked">0</b><small>進行中</small></div><div><span>COLLECTED</span><b id="questItems">0</b><small>已記錄道具</small></div><div><span>COMPLETE</span><b id="questDone">0</b><small>已完成</small></div><p>勾選與數量只儲存在這台裝置，不會上傳角色資料。</p></div>
+        <div class="quest-toolbar"><div class="filter-pills" id="questFilters"><button type="button" class="active" data-filter="all">全部任務</button><button type="button" data-filter="main">主線／轉職</button><button type="button" data-filter="side">支線</button></div><span id="questCount">0 個符合項目</span></div>
+        <div class="quest-guide"><b>閱讀方式</b><span>點開任務查看完整歷程並勾選步驟；可記錄接取狀態、目前道具數量與完成狀態。</span></div>
+        <div class="quest-list" id="questList"></div>
+      </section>
+      <section id="party" class="page">
+        <div class="party-intro"><span>PARTY FINDER</span><h2>先看門檻，再找隊友。</h2><p>等級不是唯一條件；進場前仍要確認全隊人數、職業分工與當期是否開放。</p></div>
+        <div class="party-timeline" id="partyTimeline"></div>
+      </section>
+      <section id="notes" class="page">
+        <div class="notes-hero"><span>DATA NOTES</span><h2>有依據，<br>也保留不確定性。</h2><p>本站不是官方資料庫。推薦路線會區分官方客戶端、2026 玩家實測與舊版社群經驗，避免把不同版本的內容混為一談。</p></div>
+        <div class="version-card"><div class="version-badge">V001</div><div><span>CURRENT DATA WINDOW</span><h3>台服經典版 · 2026.10.12</h3><p>目前以等級上限 Lv.100、二轉開放及維多利亞島可用內容為主。</p></div><div class="version-next"><span>10/15 預告</span><b>天空之城・冰原雪域</b><small>預告地圖不會混入「現在可前往」的結果。</small></div></div>
+        <div class="source-grid">
+          <a href="https://forum.gamer.com.tw/Co.php?bsn=85994&sn=773" target="_blank" rel="noreferrer"><span>01</span><b>巴哈姆特</b><small>1–60 練功與社群實測</small></a>
+          <a href="https://mapleclassictools.com/" target="_blank" rel="noreferrer"><span>02</span><b>楓錄</b><small>職業、任務與效率交叉核對</small></a>
+          <a href="https://bobogameguides.com/maplestory-classic/monsters/index.html" target="_blank" rel="noreferrer"><span>03</span><b>波波攻略島</b><small>客戶端怪物與地圖資料</small></a>
+          <a href="https://www.zhenyukuji.com/drops/" target="_blank" rel="noreferrer"><span>04</span><b>MapleLab</b><small>怪物與掉落物雙向查詢</small></a>
+          <a href="https://maplestory.io/" target="_blank" rel="noreferrer"><span>05</span><b>MapleStory.IO</b><small>怪物遊戲素材 API</small></a>
+          <a href="https://kafuffu20.com/quests/2026/" target="_blank" rel="noreferrer"><span>06</span><b>楓情報</b><small>任務條件、流程與獎勵複核</small></a>
+        </div>
+        <div class="method-grid"><article><b>● 客戶端／實測</b><p>怪物等級、掉落清單或玩家在 2026 台服實際驗證。</p></article><article><b>● 玩家路線</b><p>地形與效率來自社群經驗，裝備、職業與頻道狀況會造成差異。</p></article><article><b>● 版本預告</b><p>只呈現已公告方向，不把預告地區視為已開放內容。</p></article></div>
+        <p class="legal-note">怪物圖片與遊戲名稱之權利屬 NEXON。本站為非官方攻略工具；掉落機率未公開，「稀有」是攻略價值標記，不代表官方公布機率。若資料與遊戲內顯示不同，請以遊戲內為準。</p>
+      </section>
+    </main>
+  </div>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <script src="./app.js"></script>
+</body>
+</html>
+
